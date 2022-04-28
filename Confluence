@@ -1,0 +1,73 @@
+import requests
+
+import json
+
+url = "https://your-domain.atlassian.net/wiki/rest/api/content/{id}/copy"
+
+headers = {
+
+   "Accept": "application/json;charset=UTF-8",
+
+   "Content-Type": "application/json",
+
+   "Authorization": "Bearer <access_token>"
+
+}
+
+payload = json.dumps( {
+
+  "copyAttachments": true,
+
+  "copyPermissions": true,
+
+  "copyProperties": true,
+
+  "copyLabels": true,
+
+  "copyCustomContents": true,
+
+  "destination": {
+
+    "type": "space",
+
+    "value": "<string>"
+
+  },
+
+  "pageTitle": "<string>",
+
+  "body": {
+
+    "storage": {
+
+      "value": "<string>",
+
+      "representation": "view"
+
+    },
+
+    "editor2": {
+
+      "value": "<string>",
+
+      "representation": "view"
+
+    }
+
+  }
+
+} )
+
+response = requests.request(
+
+   "POST",
+
+   url,
+
+   data=payload,
+
+   headers=headers
+
+)
+
+print(response.text)
