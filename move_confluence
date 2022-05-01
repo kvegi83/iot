@@ -1,0 +1,10 @@
+import requests
+import json
+
+url = "https://wwewrestling217.atlassian.net/wiki/rest/api/content/229389/move/append/229396"
+headers = {
+   "Accept": "application/json",
+   "Authorization": "Basic d3dld3Jlc3RsaW5nMjE3QGdtYWlsLmNvbTpOV05pd054VHYzc0IzZEt4QVg1MzgxMEE="
+}
+response = requests.request("PUT",url,headers=headers)
+print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
