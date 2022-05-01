@@ -1,0 +1,25 @@
+# This code sample uses the 'requests' library:
+# http://docs.python-requests.org
+import requests
+import json
+
+url = "https://your-domain.atlassian.net/wiki/rest/api/content/{pageId}/move/{position}/{targetId}"
+
+headers = {
+   "Accept": "application/json",
+   "Authorization": "Bearer <access_token>"
+}
+
+response = requests.request(
+   "PUT",
+   url,
+   headers=headers
+)
+
+print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
+
+for Authorization:
+goto https://www.base64encode.org/
+give username:authentication will generate base64 code
+wwewrestling217@gmail.com:NWNiwNxTv3sB3dKxAX53810A will be converted to d3dld3Jlc3RsaW5nMjE3QGdtYWlsLmNvbTpOV05pd054VHYzc0IzZEt4QVg1MzgxMEE=
