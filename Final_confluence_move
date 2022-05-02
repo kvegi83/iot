@@ -1,0 +1,43 @@
+import requests
+import json
+from datetime import date
+
+def Get_childrens_id(parent_id,Auth):
+    url = f"https://wwewrestling217.atlassian.net/wiki/rest/api/content/{parent_id}/child/page"
+    headers = {"Accept": "application/json",
+               "Authorization": f"Basic {Auth}"}
+    response = requests.request("GET",url,headers=headers)
+    data=json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
+    data=json.loads(data)
+    child_pages=[]
+    for page in data["results"]:
+        temp=page["_expandable"]["children"]
+        child_pages.append(temp.split("/")[-2])
+    return(child_pages)
+
+def move_children_src_dst(source_id,destnination_id,Auth):
+    url = f"https://wwewrestling217.atlassian.net/wiki/rest/api/content/{source_id}/move/append/{destination_id}"
+    headers = {"Accept": "application/json",
+                "Authorization": f"Basic {Auth}"}
+    response = requests.request("PUT",url,headers=headers)
+    print(response)
+    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
+def no_of_child_pages(parent_id,Auth):
+    child_pages=Get_childrens_id(parent_id,Auth)
+    return len(child_pages)
+
+parent_id=196626
+destination_id=229415
+
+#parent_id=229415
+#destination_id=196626
+Authorization_key="d3dld3Jlc3RsaW5nMjE3QGdtYWlsLmNvbTpWRXZtb1BKQURkRGV1M0xYV2JEeEY5NEI="
+
+childrens_id=Get_childrens_id(parent_id,Authorization_key)
+
+print(f"number of pages in dest before moving {no_of_child_pages(destination_id,Authorization_key)}")
+for child_id in childrens_id:
+    move_children_src_dst(child_id,destination_id,Authorization_key)
+print("done")
+print(f"number of pages in dest after moving {no_of_child_pages(destination_id,Authorization_key)}")
